@@ -1,11 +1,11 @@
 import { Link } from "@heroui/link";
-import { Snippet } from "@heroui/snippet";
-import { Code } from "@heroui/code";
+// import { Snippet } from "@heroui/snippet";
+// import { Code } from "@heroui/code";
 import { button as buttonStyles } from "@heroui/theme";
 
 import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+// import { GithubIcon } from "@/components/icons";
 import DefaultLayout from "@/layouts/default";
 
 export default function IndexPage() {
@@ -17,10 +17,10 @@ export default function IndexPage() {
           <span className={title({ color: "violet" })}>beautiful&nbsp;</span>
           <br />
           <span className={title()}>
-            websites regardless of your design experience.
+            All-in-One Student Management Solution.
           </span>
           <div className={subtitle({ class: "mt-4" })}>
-            Beautiful, fast and modern React & Hero UI library.
+            Manage student records, attendance, results, and performance .
           </div>
         </div>
 
@@ -32,28 +32,29 @@ export default function IndexPage() {
               radius: "full",
               variant: "shadow",
             })}
-            href={siteConfig.links.docs}
+            href={siteConfig.links.read}
           >
-            Documentation
+            Read
           </Link>
           <Link
             isExternal
             className={buttonStyles({ variant: "bordered", radius: "full" })}
-            href={siteConfig.links.github}
+            href={siteConfig.links.create}
           >
-            <GithubIcon size={20} />
-            GitHub 29
+            {/* <GithubIcon size={20} /> */}
+            Create
           </Link>
         </div>
-
-        <div className="mt-8">
+      
+        {/* <div className="mt-8">
           <Snippet hideCopyButton hideSymbol variant="bordered">
             <span>
               Get started by editing{" "}
               <Code color="primary">pages/index.tsx</Code>
             </span>
           </Snippet>
-        </div>
+        </div> */}
+        
       </section>
     </DefaultLayout>
   );
