@@ -1,21 +1,20 @@
 //import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
-import { Card, CardHeader, CardBody } from "@heroui/card";
 //import { Link } from "@heroui/link";
 import { Divider } from "@heroui/divider";
 import { Image } from "@heroui/image";
 import { Form } from "@heroui/form";
 import { Input } from "@heroui/input";
 import { Button } from "@heroui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Card, CardHeader, CardBody } from "@heroui/card";
 
 //https://698ec424aded595c2532b6b0.mockapi.io/Students_data
 
 export default function DocsPage() {
-
-
+  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [rollnumber, setRollnumber] = useState("");
   const [department, setDepartment] = useState("");
@@ -24,26 +23,33 @@ export default function DocsPage() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e:React.FormEvent) => {
+  const handleUpdate = (e: React.FormEvent) => {
     e.preventDefault();
     axios
-    .post("https://698ec424aded595c2532b6b0.mockapi.io/Students_data",{
-      name:name,
-      rollnumber:rollnumber,
-      department:department,
-      marks:marks,
-      grade:grade
-    })
-    .then((res)=>{
-      navigate("/read");
-      console.log(res.data)
-    })
-    .catch(()=>{
-      alert("Error");
-    })
-    
+      .put(`https://698ec424aded595c2532b6b0.mockapi.io/Students_data/${id}`, {
+        name: name,
+        rollnumber: rollnumber,
+        department: department,
+        marks: marks,
+        grade: grade,
+      })
+      .then((res) => {
+        navigate("/read");
+        console.log(res.data);
+      })
+      .catch(() => {
+        alert("Error");
+      });
+  };
 
-  }
+  useEffect(() => {
+    setId(localStorage.getItem("id") || "");
+    setName(localStorage.getItem("name") || "");
+    setRollnumber(localStorage.getItem("rollnumber") || "");
+    setDepartment(localStorage.getItem("department") || "");
+    setMarks(localStorage.getItem("marks") || "");
+    setGrade(localStorage.getItem("grade") || "");
+  }, []);
 
   return (
     <DefaultLayout>
@@ -75,7 +81,7 @@ export default function DocsPage() {
               Create your account to get started.
             </p>
 
-            <Form className="space-y-2" onSubmit={handleSubmit}>
+            <Form className="space-y-2" onSubmit={handleUpdate}>
               <Input
                 isRequired
                 label="Name"
@@ -83,7 +89,7 @@ export default function DocsPage() {
                 placeholder="Enter your name"
                 type="name"
                 value={name}
-                onChange={(e)=>setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               />
 
               <Input
@@ -93,7 +99,7 @@ export default function DocsPage() {
                 placeholder="Enter your roll number"
                 type="rollnumber"
                 value={rollnumber}
-                onChange={(e)=>setRollnumber(e.target.value)}
+                onChange={(e) => setRollnumber(e.target.value)}
               />
               <Input
                 isRequired
@@ -102,7 +108,7 @@ export default function DocsPage() {
                 placeholder="Enter your department"
                 type="department"
                 value={department}
-                onChange={(e)=>setDepartment(e.target.value)}
+                onChange={(e) => setDepartment(e.target.value)}
               />
               <div className="flex flex-row space-x-2">
                 <Input
@@ -112,7 +118,7 @@ export default function DocsPage() {
                   placeholder="Enter your marks"
                   type="marks"
                   value={marks}
-                  onChange={(e)=>setMarks(e.target.value)}
+                  onChange={(e) => setMarks(e.target.value)}
                 />
 
                 <Input
@@ -122,7 +128,7 @@ export default function DocsPage() {
                   placeholder="Enter your Grade"
                   type="grade"
                   value={grade}
-                  onChange={(e)=>setGrade(e.target.value)}
+                  onChange={(e) => setGrade(e.target.value)}
                 />
               </div>
 
