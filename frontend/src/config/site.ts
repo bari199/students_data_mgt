@@ -1,7 +1,9 @@
+import { create } from "domain";
+
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Vite + HeroUI",
+  name: "SMSP",
   description: "Make beautiful websites regardless of your design experience.",
   navItems: [
     {
@@ -9,12 +11,12 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Docs",
-      href: "/docs",
+      label: "Read",
+      href: "/read",
     },
     {
-      label: "Pricing",
-      href: "/pricing",
+      label: "Create",
+      href: "/create",
     },
     {
       label: "Blog",
@@ -65,5 +67,7 @@ export const siteConfig = {
     docs: "https://heroui.com",
     discord: "https://discord.gg/9b6yyZKmH4",
     sponsor: "https://patreon.com/jrgarciadev",
+    create: "http://localhost:5173/Create",
+    read: "http://localhost:5173/Read",
   },
 };
