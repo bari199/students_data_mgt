@@ -10,6 +10,7 @@ import AboutPage from "@/pages/about";
 import ReadPage from "@/pages/read";
 import EditPage from "@/pages/edit";
 import CreatePage from "@/pages/create";
+import StudentView from "@/components/studentview";
 
 
 
@@ -19,6 +20,7 @@ function App() {
       <Route element={<IndexPage />} path="/" />
       <Route element={<DocsPage />} path="/docs" />
       <Route element={<PricingPage />} path="/pricing" />
+      <Route element={<StudentView />} path="/studentview/:id" />
       <Route element={<BlogPage />} path="/blog" />
       <Route element={<AboutPage />} path="/about" />
       <Route element={<ReadPage />} path="/read" />

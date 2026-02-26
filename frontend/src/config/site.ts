@@ -19,7 +19,7 @@ export const siteConfig = {
       href: "/create",
     },
     {
-      label: "Blog",
+      label: "Events",
       href: "/blog",
     },
     {

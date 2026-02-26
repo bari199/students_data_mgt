@@ -4,7 +4,8 @@ import DefaultLayout from "@/layouts/default";
 import StudentTableCell from "@/components/StudentTableCell";
 import { Button } from "@heroui/button";
 import { SearchIcon } from "@/components/icons";
-
+import {Divider} from "@heroui/react";
+import { useLocation } from "react-router-dom";
 import {
   Table,
   TableHeader,
@@ -50,6 +51,7 @@ export default function UsersTable() {
   const [apiData, setApiData] = useState<DataItem[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+   const location = useLocation();
 
   /* ---------- Fetch ---------- */
 
@@ -103,6 +105,30 @@ export default function UsersTable() {
 
   return (
     <DefaultLayout>
+       <div className="min-w-2xl mx-auto">
+        <h1 className="text-4xl font-bold">Students Details </h1>
+        <p className="text-small text-default-400">
+          All Students details like marks, grade, rollnumbers 2025. 
+        </p>
+
+        <Divider className="my-4" />
+        <div className="flex h-5 items-center space-x-4 text-small">
+          {location.pathname === "/read" ? (
+            <>
+             <div>Details Tables</div>
+          <Divider orientation="vertical" />
+            </>
+          ):
+          <>
+          <div>Docs</div>
+          <Divider orientation="vertical" />
+          <div>Source</div>
+          </>
+         }
+         
+          
+        </div>
+      </div>
       <div className="flex flex-col items-center mt-2 gap-2">
         {/* SEARCH */}
         <div className="flex w-full justify-center items-center gap-2">
