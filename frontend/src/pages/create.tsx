@@ -9,7 +9,8 @@ import { Input } from "@heroui/input";
 import { Button } from "@heroui/button";
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 
 //https://698ec424aded595c2532b6b0.mockapi.io/Students_data
 
@@ -22,6 +23,11 @@ export default function DocsPage() {
 
   const navigate = useNavigate();
 
+<<<<<<< HEAD
+=======
+  const location = useLocation();
+
+>>>>>>> b8aa09f8d40108aad8b0b08711b18dd69f6c340f
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     axios
@@ -43,6 +49,31 @@ export default function DocsPage() {
 
   return (
     <DefaultLayout>
+      <div className="min-w-3xl mx-auto">
+        <h1 className="text-4xl font-bold">Students Create</h1>
+        <p className="text-small text-default-400">
+          Student Create page to create your fields 
+        </p>
+
+        <Divider className="my-4" />
+        <div className="flex h-5 items-center space-x-4 text-small">
+          {location.pathname === "/create" ? (
+            <>
+             <div>Create </div>
+          <Divider orientation="vertical" />
+            </>
+          ):
+          <>
+          <div>Docs</div>
+          <Divider orientation="vertical" />
+          <div>Source</div>
+          </>
+         }
+         
+          
+        </div>
+      </div>
+
       <section className="min-h-screen flex items-center justify-center px-2 mb-0.5">
         <Card className="w-full max-w-md shadow-xl rounded-2xl p-4">
           {/* Title */}
