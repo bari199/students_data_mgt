@@ -53,9 +53,11 @@ export default function StudentTableCell({
       return (
         <div className="flex items-center gap-3 justify-center">
           <Tooltip content="Details">
-            <span className="cursor-pointer">
+            <Link to={`/studentview/${user.id}`}>
+             <span className="cursor-pointer">
               <EyeIcon size={18} />
             </span>
+            </Link>
           </Tooltip>
 
           <Link to="/edit">
