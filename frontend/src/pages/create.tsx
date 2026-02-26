@@ -23,11 +23,8 @@ export default function DocsPage() {
 
   const navigate = useNavigate();
 
-<<<<<<< HEAD
-=======
   const location = useLocation();
 
->>>>>>> b8aa09f8d40108aad8b0b08711b18dd69f6c340f
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     axios
