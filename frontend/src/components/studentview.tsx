@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import DefaultLayout from "@/layouts/default";
-import { Card, CardHeader, CardBody, Image, Divider, Button } from "@heroui/react";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Image,
+  Divider,
+  Button,
+} from "@heroui/react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -14,24 +21,18 @@ import {
 } from "@heroui/react";
 
 export default function StudentView() {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [student, setStudent] = useState<any>({});
 
-
-   
-
   useEffect(() => {
-     axios
+    axios
       .get(`https://698ec424aded595c2532b6b0.mockapi.io/Students_data/${id}`)
       .then((res) => setStudent(res.data))
       .catch((err) => alert(err.message));
   }, [id]);
 
-
-if (!student) return <p className="text-center mt-10">Loading...</p>;
-  
-
+  if (!student) return <p className="text-center mt-10">Loading...</p>;
 
   const handleOpen = () => {
     onOpen();
@@ -48,15 +49,15 @@ if (!student) return <p className="text-center mt-10">Loading...</p>;
 
         <Divider className="my-4" />
         <div className="flex h-5 items-center space-x-4 text-small">
-        <Button color="success" onPress={handleOpen}>
-          Notice
-        </Button>
-        <div>Blog</div>
-        <Divider orientation="vertical" />
-        <div>Docs</div>
-        <Divider orientation="vertical" />
-        <div>Source</div>
-      </div>
+          <Button color="success" onPress={handleOpen}>
+            Notice
+          </Button>
+          <div>Blog</div>
+          <Divider orientation="vertical" />
+          <div>Docs</div>
+          <Divider orientation="vertical" />
+          <div>Source</div>
+        </div>
       </div>
 
       {/* DRAWER */}
@@ -78,54 +79,50 @@ if (!student) return <p className="text-center mt-10">Loading...</p>;
         </DrawerContent>
       </Drawer>
 
-
       <section className="flex flex-wrap justify-center gap-6 py-10">
-          <Card key={student.id} className="py-3 w-[300px]">
-            <CardBody className="overflow-visible py-2">
-              <Image
-                alt="Student Image"
-                className="object-cover rounded-xl"
-                src={student?.image || "https://heroui.com/images/hero-card-complete.jpeg"}
-                width={270}
-              />
-            </CardBody>
+        <Card key={student.id} className="py-3 w-[300px]">
+          <CardBody className="overflow-visible py-2">
+            <Image
+              alt="Student Image"
+              className="object-cover rounded-xl"
+              src={
+                student?.image ||
+                "https://heroui.com/images/hero-card-complete.jpeg"
+              }
+              width={270}
+            />
+          </CardBody>
 
-            <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-              <p className="font-semibold text-2xl">{student?.name}</p>
+          <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+            <p className="font-semibold text-2xl">{student?.name}</p>
 
-              <Divider className="my-2" />
+            <Divider className="my-2" />
 
-              <p className="text-tiny uppercase font-bold">Roll Number</p>
-              <small className="text-default-500">{student?.rollnumber}</small>
+            <p className="text-tiny uppercase font-bold">Roll Number</p>
+            <small className="text-default-500">{student?.rollnumber}</small>
 
-              <Divider className="my-2" />
+            <Divider className="my-2" />
 
-              <p className="text-tiny uppercase font-bold">Marks</p>
-              <p className="text-default-500 font-medium">
-                {student?.marks}
-              </p>
+            <p className="text-tiny uppercase font-bold">Marks</p>
+            <p className="text-default-500 font-medium">{student?.marks}</p>
 
-              <Divider className="my-2" />
+            <Divider className="my-2" />
 
-              <div className="flex flex-row h-5 items-center space-x-4 text-small">
-                <div>Department:</div>
-                <small className="text-default-500">
-                  {student?.department}
-                </small>
+            <div className="flex flex-row h-5 items-center space-x-4 text-small">
+              <div>Department:</div>
+              <small className="text-default-500">{student?.department}</small>
 
-                <Divider orientation="vertical" />
+              <Divider orientation="vertical" />
 
-                <div>Grade:</div>
-                <small className="text-default-500">
-                  {student?.grade}
-                </small>
-              </div>
-            </CardHeader>
-
-            <div className="flex justify-center mt-3">
-              <Button color="success">More</Button>
+              <div>Grade:</div>
+              <small className="text-default-500">{student?.grade}</small>
             </div>
-          </Card>
+          </CardHeader>
+
+          <div className="flex justify-center mt-3">
+            <Button color="success">More</Button>
+          </div>
+        </Card>
       </section>
     </DefaultLayout>
   );

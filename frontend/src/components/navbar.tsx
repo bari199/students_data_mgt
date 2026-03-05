@@ -2,6 +2,7 @@ import { Button } from "@heroui/button";
 import { Kbd } from "@heroui/kbd";
 import { Link } from "@heroui/link";
 import { Input } from "@heroui/input";
+import { button as buttonStyles } from "@heroui/theme";
 import {
   Navbar as HeroUINavbar,
   NavbarBrand,
@@ -13,13 +14,35 @@ import {
 } from "@heroui/navbar";
 import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
+//import { Image } from "@heroui/image";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { SearchIcon } from "@/components/icons";
 import { Logo } from "@/components/icons";
+import { Avatar } from "@heroui/react";
 
 export const Navbar = () => {
+  const user = JSON.parse(localStorage.getItem("user") || "null");
+  console.log(user);
+
+  const isAuth = localStorage.getItem("isAuth") === "true";
+
+  const publicNavItems = [
+    { label: "Home", href: "/" },
+    { label: "Signup", href: "/signup" },
+    { label: "Login", href: "/login" },
+    { label: "About", href: "/about" },
+  ];
+
+  const navItems = isAuth ? siteConfig.navItems : publicNavItems;
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAuth");
+    localStorage.removeItem("user");
+    window.location.href = "/login";
+  };
+
   const searchInput = (
     <Input
       aria-label="Search"
@@ -55,7 +78,7 @@ export const Navbar = () => {
           </Link>
         </NavbarBrand>
         <div className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
+          {navItems.map((item) => (
             <NavbarItem key={item.href}>
               <Link
                 className={clsx(
@@ -79,8 +102,31 @@ export const Navbar = () => {
         <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
         </NavbarItem>
-        <NavbarItem className="hidden lg:flex"></NavbarItem>
-        <NavbarItem className="hidden md:flex"></NavbarItem>
+        {isAuth && (
+          <NavbarItem className="hidden lg:flex">
+            <Button
+              onClick={handleLogout}
+              className={buttonStyles({
+                color: "primary",
+                radius: "full",
+                variant: "shadow",
+              })}
+            >
+              Logout
+            </Button>
+          </NavbarItem>
+        )}
+        {user && (
+          <NavbarItem className="hidden md:flex">
+            <Avatar
+              isBordered 
+              color="primary"
+              src={user.profileImage}
+              alt="profile"
+              radius="full"
+            />
+          </NavbarItem>
+        )}
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
