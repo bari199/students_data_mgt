@@ -4,9 +4,9 @@ import DefaultLayout from "@/layouts/default";
 import StudentTableCell from "@/components/StudentTableCell";
 import { Button } from "@heroui/button";
 import { SearchIcon } from "@/components/icons";
-import {Divider} from "@heroui/react";
+import { Divider } from "@heroui/react";
 import { useLocation } from "react-router-dom";
-
+import { Pagination } from "@heroui/react";
 import {
   Table,
   TableHeader,
@@ -50,9 +50,12 @@ const columns: { name: string; uid: ColumnKey }[] = [
 
 export default function UsersTable() {
   const [apiData, setApiData] = useState<DataItem[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 5;
+
   const [searchInput, setSearchInput] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-   const location = useLocation();
+  const location = useLocation();
 
   /* ---------- Fetch ---------- */
 
@@ -104,30 +107,35 @@ export default function UsersTable() {
 
   /* ---------- UI ---------- */
 
+  /**-------Pagination logic ---------- */
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+
+  const currentPosts = filteredData.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(filteredData.length / postsPerPage);
+
   return (
     <DefaultLayout>
-       <div className="min-w-2xl mx-auto">
+      <div className="min-w-2xl mx-auto">
         <h1 className="text-4xl font-bold">Students Details </h1>
         <p className="text-small text-default-400">
-          All Students details like marks, grade, rollnumbers 2025. 
+          All Students details like marks, grade, rollnumbers 2025.
         </p>
 
         <Divider className="my-4" />
         <div className="flex h-5 items-center space-x-4 text-small">
           {location.pathname === "/read" ? (
             <>
-             <div>Details Tables</div>
-          <Divider orientation="vertical" />
+              <div>Details Tables</div>
+              <Divider orientation="vertical" />
             </>
-          ):
-          <>
-          <div>Docs</div>
-          <Divider orientation="vertical" />
-          <div>Source</div>
-          </>
-         }
-         
-          
+          ) : (
+            <>
+              <div>Docs</div>
+              <Divider orientation="vertical" />
+              <div>Source</div>
+            </>
+          )}
         </div>
       </div>
       <div className="flex flex-col items-center mt-2 gap-2">
@@ -159,7 +167,7 @@ export default function UsersTable() {
             )}
           </TableHeader>
 
-          <TableBody items={filteredData}>
+          <TableBody items={currentPosts}>
             {(item) => (
               <TableRow key={item.id}>
                 {(columnKey) => (
@@ -176,6 +184,17 @@ export default function UsersTable() {
             )}
           </TableBody>
         </Table>
+        {/* Pagination */}
+        <div className="flex justify-center mt-4">
+          <Pagination
+            page={currentPage}
+            total={totalPages}
+            onChange={(page) => setCurrentPage(page)}
+            showControls
+            loop
+            color="success"
+          />
+        </div>
       </div>
     </DefaultLayout>
   );

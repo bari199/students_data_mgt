@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-
 import IndexPage from "@/pages/index";
 import DocsPage from "@/pages/docs";
 import PricingPage from "@/pages/pricing";
@@ -12,6 +11,11 @@ import StudentView from "@/components/studentview";
 import SignupPage from "@/pages/signup";
 import Login from "@/pages/login";
 import ProtectedRoute from "@/auth/ProtectedRoute";
+import ViewProfile from "@/pages/viewprofile";
+import EditProfile from "@/pages/editprofile";
+
+
+
 
 function App() {
   return (
@@ -31,6 +35,8 @@ function App() {
         <Route path="/read" element={<ReadPage />} />
         <Route path="/edit" element={<EditPage />} />
         <Route path="/create" element={<CreatePage />} />
+        <Route path="/view-profile/:id" element={<ViewProfile/>}/>
+        <Route path="/editprofile/:id" element={<EditProfile/>}/>
       </Route>
     </Routes>
   );

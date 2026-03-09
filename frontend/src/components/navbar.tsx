@@ -22,6 +22,9 @@ import { SearchIcon } from "@/components/icons";
 import { Logo } from "@/components/icons";
 import { Avatar } from "@heroui/react";
 
+import { Popover, PopoverTrigger, PopoverContent } from "@heroui/react";
+import { UserTwitterCard } from "@/components/UserTwitterCard";
+
 export const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
   console.log(user);
@@ -118,13 +121,23 @@ export const Navbar = () => {
         )}
         {user && (
           <NavbarItem className="hidden md:flex">
-            <Avatar
-              isBordered 
-              color="primary"
-              src={user.profileImage}
-              alt="profile"
-              radius="full"
-            />
+            <Popover trigger="hover" placement="bottom-end" showArrow>
+              <PopoverTrigger>
+                <Avatar
+                  isBordered
+                  color="primary"
+                  src={user.profileImage}
+                  alt="profile"
+                  radius="full"
+                  className="cursor-pointer"
+                />
+              </PopoverTrigger>
+
+              <PopoverContent className="p-2">
+                <UserTwitterCard user={user} />
+                
+              </PopoverContent>
+            </Popover>
           </NavbarItem>
         )}
       </NavbarContent>
